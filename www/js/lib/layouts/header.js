@@ -63,7 +63,7 @@ define(function(require) {
         var _this = this;
 
         if(!nav.children().length) {
-            var back = $('<button class="back">Back</button>');
+            var back = $('<button class="back">Wróć</button>');
             nav.append(back);
 
             back.on(clickEvent, function() {
