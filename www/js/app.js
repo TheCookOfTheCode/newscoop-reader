@@ -19,6 +19,7 @@ define(function(require) {
     // List view
 
     var list = $('.list').get(0);
+
     api.getResource('/articles', {'type': 'news'})
         .setItemsPerPage(15)
         .setOrder({'number': 'desc'})
