@@ -1,8 +1,8 @@
 {
   "version": "0.1",
-  "name": "My App",
+  "name": "Newscoop Reader",
   "description": "Your new awesome Open Web App",
-  "launch_path": "/",
+  "launch_path": "/index.html",
   "icons": {
     "16": "/img/icons/mortar-16.png",
     "48": "/img/icons/mortar-48.png",
