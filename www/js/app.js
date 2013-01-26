@@ -11,32 +11,34 @@ define(function(require) {
 
     // Install the layouts
     require('layouts/layouts');
+    require('newscoop');
 
     // Write your app here.
-
-
-    function formatDate(d) {
-        return (d.getMonth()+1) + '/' +
-            d.getDate() + '/' +
-            d.getFullYear();
-    }
+    var api = new NewscoopRestApi('http://miedzyrzecsiedzieje.pl/api');
 
     // List view
 
     var list = $('.list').get(0);
-    list.add({ title: 'Learn this template',
-               desc: 'This is a list-detail template. Learn more ' +
-                     'about it at its ' +
-                     '<a href="https://github.com/mozilla/mortar-list-detail">project page!</a>',
-               date: new Date() });
-    list.add({ title: 'Make things',
-               desc: 'Make this look like that',
-               date: new Date(12, 9, 5) });
-    for(var i=0; i<8; i++) {
-        list.add({ title: 'Move stuff',
-                   desc: 'Move this over there',
-                   date: new Date(12, 10, 1) });
-    }
+    api.getResource('/articles', {'type': 'news'})
+        .setItemsPerPage(15)
+        .setOrder({'number': 'desc'})
+        .makeRequest(function(res){
+            for(var i=0; i<res.items.length; i++) {
+                var article = { 
+                   title: res.items[i].title,
+                   desc: res.items[i].fields.deck,
+                   date: res.items[i].published,
+                };
+
+                if (typeof res.items[i].renditions != 'undefined') {
+                    article['image'] = res.items[i].renditions[0].link;
+                }
+
+                list.add(article);
+            }
+        });
+
+    
 
     // Detail view
 
@@ -44,46 +46,9 @@ define(function(require) {
     detail.render = function(item) {
         $('.title', this).html(item.get('title'));
         $('.desc', this).html(item.get('desc'));
-        $('.date', this).text(formatDate(item.get('date')));
+        $('.date', this).text(item.get('date'));
+        console.log(decodeURIComponent(item.get('image')));
+        $('.image', this).attr('src', 'http://'+decodeURIComponent(item.get('image')).replace('%7C', "|"));
     };
 
-    // Edit view
-
-    var edit = $('.edit').get(0);
-    edit.render = function(item) {
-        item = item || { id: '', get: function() { return ''; } };
-
-        $('input[name=id]', this).val(item.id);
-        $('input[name=title]', this).val(item.get('title'));
-        $('input[name=desc]', this).val(item.get('desc'));
-    };
-
-    edit.getTitle = function() {
-        var model = this.view.model;
-
-        if(model) {
-            return model.get('title');
-        }
-        else {
-            return 'New';
-        }
-    };
-
-    $('button.add', edit).click(function() {
-        var el = $(edit);
-        var title = el.find('input[name=title]');
-        var desc = el.find('input[name=desc]');
-        var model = edit.model;
-
-        if(model) {
-            model.set({ title: title.val(), desc: desc.val() });
-        }
-        else {
-            list.add({ title: title.val(),
-                       desc: desc.val(),
-                       date: new Date() });
-        }
-
-        edit.close();
-    });
 });
