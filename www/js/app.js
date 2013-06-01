@@ -25,32 +25,7 @@ define(function(require) {
         appendTo.append(element);
     }
 
-    api.getResource('/articles', {'type': 'news'})
-        .setItemsPerPage(15)
-        .setOrder({'number': 'desc'})
-        .makeRequest(function(res){
-            $('.loading').hide();
-            for(var i=0; i<res.items.length; i++) {
-                var article = { 
-                   title: res.items[i].title,
-                   desc: res.items[i].fields.deck,
-                   date: res.items[i].published,
-                   id: res.items[i].number,
-                   language: res.items[i].language
-                };
-
-                if (typeof res.items[i].renditions != 'undefined') {
-                    article['image'] = res.items[i].renditions[0].link;
-                }
-
-                articles[article.id+'_'+article.language] = article;
-
-                list.add(article, $('ul.elements', list));
-            }
-        });
-
     // Detail view
-    console.log(articles);
     var detail = $('#details-view').get(0);
     detail.render = function(item) {
         $('.title', this).html(item.title);
@@ -64,7 +39,7 @@ define(function(require) {
         $('header', list).attr('class', 'currentToLeftSlow');
         $('section', list).attr('class', 'currentToLeftFast');
         $(detail).show();
-        $('header', detail).attr('class', 'fadeIn');
+        $('header', detail).attr('class', 'nextToLeft');
         $('div.content', detail).attr('class', 'nextToLeft');
         
         $(list).hide();
@@ -82,5 +57,36 @@ define(function(require) {
         $(detail).hide();
         return false;
     });
+
+    $('.menu-link.show-news').live('click', function(){
+        api.getResource('/articles', {'type': 'news'})
+            .setItemsPerPage(15)
+            .setOrder({'number': 'desc'})
+            .makeRequest(function(res){
+                $('.loading').hide();
+                for(var i=0; i<res.items.length; i++) {
+                    var article = { 
+                       title: res.items[i].title,
+                       desc: res.items[i].fields.deck,
+                       date: res.items[i].published,
+                       id: res.items[i].number,
+                       language: res.items[i].language
+                    };
+
+                    if (typeof res.items[i].renditions != 'undefined') {
+                        article['image'] = res.items[i].renditions[0].link;
+                    }
+
+                    articles[article.id+'_'+article.language] = article;
+
+                    list.add(article, $('ul.elements', list));
+                }
+
+                $('#menu').hide();
+                $(list).show();
+                $('header', list).attr('class', 'headerLeftToCurrent');
+                $('section', list).attr('class', 'leftToCurrent');
+            });
+    })
 
 });

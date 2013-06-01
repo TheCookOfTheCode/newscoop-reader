@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
+<head>
+  <meta charset="utf-8">
 
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <!-- Place favicon.ico in the root directory -->
+  <!-- Place favicon.ico in the root directory -->
 
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" type="text/css" href="shared/style/headers.css">
@@ -21,11 +21,12 @@
     <section role="region" id="list-view">
       <header style="position:fixed; top:0px; width:100%;">
         <menu type="toolbar">
-          <a href="#"><span class="icon icon-menu">edit</span></a>
+          <!--<a href="#"><span class="icon icon-menu">edit</span></a>-->
         </menu>
         <h1>Reader</h1>
       </header>
-      <section data-type="list" style="margin: 5rem 10px 10px 10px;">
+
+      <section data-type="list" style="margin: 6rem 10px 10px 10px;">
         <ul class="elements"></ul>
       </section>
     </section>
@@ -35,7 +36,7 @@
         <a href="#"><span class="icon icon-back go-to-list">back</span></a>
         <h1>Details</h1>
       </header>
-      <div class="content" style="margin: 5rem 10px 10px 10px;">
+      <div class="content" style="margin: 6rem 10px 10px 10px;">
         <img style="width: 100%; height: 100%;" class="image" src=""/>
         <h2 class="title" style="font-size:24px"></h2>
         <p class="desc" style="font-size:22px"></p>
@@ -43,12 +44,19 @@
       </div>
     </section>
 
+    <section data-type="list" id="menu">
+      <center>
+        <div class="menu-title"><a class="menu-link show-news" href="#">News</a></div>
+        <div class="menu-title"><a class="menu-link" href="#">Comments</a></div>
+        <div class="menu-title"><a class="menu-link" href="#">Slideshows</a></div>
+        <div class="menu-title"><a class="menu-link">Topics</a></div>
+      </center>
+    </section>
+
     <!-- Using require.js, a module system for javascript, include the
          js files. This loads "main.js", which in turn can load other
          files, all handled by require.js:
          http://requirejs.org/docs/api.html#jsfiles -->
-    <script type="text/javascript"
-            data-main="js/init.js"
-            src="js/lib/require.js"></script>
-  </body>
-</html>
+     <script type="text/javascript" data-main="js/init.js" src="js/lib/require.js"></script>
+   </body>
+ </html>
