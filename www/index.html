@@ -16,33 +16,32 @@
     <link rel="stylesheet" type="text/css" href="shared/style/lists.css">
   </head>
   <body>
-    <!-- Use this installation button to install locally without going
-         through the marketpace (see app.js) -->
+
     <!-- <button id="install-btn">Install</button>     -->
     <section role="region" id="list-view">
-      <header>
+      <header style="position:fixed; top:0px; width:100%;">
         <menu type="toolbar">
           <a href="#"><span class="icon icon-menu">edit</span></a>
         </menu>
         <h1>Reader</h1>
       </header>
-      <section data-type="list">
+      <section data-type="list" style="margin: 5rem 10px 10px 10px;">
         <ul class="elements"></ul>
       </section>
     </section>
 
-    <section role="region" id="details-view" style="display:none">
-      <header>
-        <a href="#"><span class="icon icon-back">back</span></a>
+    <section role="region" id="details-view" style="display:none" >
+      <header style="position:fixed; top:0px; width:100%;">
+        <a href="#"><span class="icon icon-back go-to-list">back</span></a>
         <h1>Details</h1>
       </header>
-      <img style="width: 100%; height: 100%;" class="image" src=""/>
-      <h2 class="title" style="font-size:24px"></h2>
-      <p class="desc" style="font-size:22px"></p>
-      <p class="date" style="font-size:18px"></p>
+      <div class="content" style="margin: 5rem 10px 10px 10px;">
+        <img style="width: 100%; height: 100%;" class="image" src=""/>
+        <h2 class="title" style="font-size:24px"></h2>
+        <p class="desc" style="font-size:22px"></p>
+        <p class="date" style="font-size:18px"></p>
+      </div>
     </section>
-
-    <div class="loading" style="font-size: 3rem; margin: 0 auto; pading: 10px; text-align: center;"><progress></progress></div>
 
     <!-- Using require.js, a module system for javascript, include the
          js files. This loads "main.js", which in turn can load other

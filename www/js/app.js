@@ -61,9 +61,25 @@ define(function(require) {
 
     $('#list-view ul li a').live('click', function(){
         detail.render(articles[$(this).data('articleId')+'_'+$(this).data('articleLanguage')]);
+        $('header', list).attr('class', 'currentToLeftSlow');
+        $('section', list).attr('class', 'currentToLeftFast');
+        $(detail).show();
+        $('header', detail).attr('class', 'fadeIn');
+        $('div.content', detail).attr('class', 'nextToLeft');
+        
+        $(list).hide();
+        return false;
+    });
 
-        $(list).anim({ translate3d: window.innerWidth + 'px, 0, 0'}, 5, 'ease-out').hide();
-        $(detail).anim({ translate3d: '0, 0, 0'}, 5, 'ease-in').show();
+    $('.go-to-list').live('click', function(){
+        $(list).show();
+        $('header', list).attr('class', 'headerLeftToCurrent');
+        $('section', list).attr('class', 'leftToCurrent');
+
+        $('header', detail).attr('class', 'fadeOut');
+        $('div.content', detail).attr('class', 'currentToRight');
+
+        $(detail).hide();
         return false;
     });
 

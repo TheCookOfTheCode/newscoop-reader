@@ -17,3 +17,55 @@ body {
     margin: 0;
     font-family: 'MozTTLight', Verdana, sans-serif;
 }
+
+.currentToLeftFast{animation: currentToLeft 0.4s forwards;}
+.currentToLeftSlow{animation: currentToLeft 0.6s forwards;}
+.nextToLeft{animation: rightToCurrent 0.4s forwards;}
+.fadeIn{animation: fadeIn 0.4s forwards;}
+
+/* Move main screen body */
+@keyframes currentToLeft {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+
+/* Move secondary screen */
+@keyframes rightToCurrent {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(0); }
+}
+
+/* Fade secondary screen header in */
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.headerLeftToCurrent {animation: headerLeftToCurrent 0.4s forwards;}
+/*------- Go Back -------*/
+/* Move main screen header h1 */
+@keyframes headerLeftToCurrent {
+    0% { transform: translateX(-20%); }
+    100% { transform: translateX(0); }
+}
+
+.leftToCurrent {animation: leftToCurrent 0.4s forwards;}
+/* Move main screen body */
+@keyframes leftToCurrent {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(0); }
+}
+
+.currentToRight {animation: currentToRight 0.4s forwards;}
+/* Move secondary screen */
+@keyframes currentToRight {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(100%); }
+}
+
+.fadeOut{animation: fadeOut 0.4s forwards;}
+/* Fade secondary screen header out */
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
