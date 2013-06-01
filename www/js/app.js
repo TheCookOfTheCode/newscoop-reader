@@ -34,30 +34,6 @@ define(function(require) {
         appendTo.append(element);
     }
 
-
-    api.getResource('/articles', {'type': 'news'})
-        .setItemsPerPage(15)
-        .setOrder({'number': 'desc'})
-        .makeRequest(function(res){
-            $('.loading').hide();
-            for(var i=0; i<res.items.length; i++) {
-                var article = { 
-                   title: res.items[i].title,
-                   desc: res.items[i].fields.deck,
-                   date: res.items[i].published,
-                   id: res.items[i].number,
-                   language: res.items[i].language
-                };
-
-                if (typeof res.items[i].renditions != 'undefined') {
-                    article['image'] = res.items[i].renditions[0].link;
-                }
-
-                articles[article.id+'_'+article.language] = article;
-                list.add(article, $('ul.elements', list));
-            }
-        });
-
     // Detail view
     var detail = $('#details-view').get(0);
     detail.render = function(item) {
@@ -71,6 +47,7 @@ define(function(require) {
         api.getResource('/articles/456/pl/comments', {})
         .setItemsPerPage(3)
         .makeRequest(function(res){
+            $('#comments').html('');
             $('.loading').hide();
             for(var i=0; i<res.items.length; i++) {
                 var comment = { 
@@ -87,9 +64,25 @@ define(function(require) {
 
     $('#list-view ul li a').live('click', function(){
         detail.render(articles[$(this).data('articleId')+'_'+$(this).data('articleLanguage')]);
+        $('header', list).attr('class', 'currentToLeftSlow');
+        $('section', list).attr('class', 'currentToLeftFast');
+        $(detail).show();
+        $('header', detail).attr('class', 'nextToLeft');
+        $('div.content', detail).attr('class', 'nextToLeft');
+        
+        $(list).hide();
+        return false;
+    });
 
-        $(list).anim({ translate3d: window.innerWidth + 'px, 0, 0'}, 5, 'ease-out').hide();
-        $(detail).anim({ translate3d: '0, 0, 0'}, 5, 'ease-in').show();
+    $('.go-to-list').live('click', function(){
+        $(list).show();
+        $('header', list).attr('class', 'headerLeftToCurrent');
+        $('section', list).attr('class', 'leftToCurrent');
+
+        $('header', detail).attr('class', 'fadeOut');
+        $('div.content', detail).attr('class', 'currentToRight');
+
+        $(detail).hide();
         return false;
     });
 
@@ -99,5 +92,36 @@ define(function(require) {
         $('.message', this).html(item.message);
         $('.author', this).text(item.author);
     };
+    $('.menu-link.show-news').live('click', function(){
+        api.getResource('/articles', {'type': 'news'})
+            .setItemsPerPage(15)
+            .setOrder({'number': 'desc'})
+            .makeRequest(function(res){
+
+                $('.loading').hide();
+                for(var i=0; i<res.items.length; i++) {
+                    var article = { 
+                       title: res.items[i].title,
+                       desc: res.items[i].fields.deck,
+                       date: res.items[i].published,
+                       id: res.items[i].number,
+                       language: res.items[i].language
+                    };
+
+                    if (typeof res.items[i].renditions != 'undefined') {
+                        article['image'] = res.items[i].renditions[0].link;
+                    }
+
+                    articles[article.id+'_'+article.language] = article;
+
+                    list.add(article, $('ul.elements', list));
+                }
+
+                $('#menu').hide();
+                $(list).show();
+                $('header', list).attr('class', 'headerLeftToCurrent');
+                $('section', list).attr('class', 'leftToCurrent');
+            });
+    })
 
 });
