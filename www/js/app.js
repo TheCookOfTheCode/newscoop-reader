@@ -17,6 +17,7 @@ define(function(require) {
 
     // List view
     var list = $('#list-view').get(0);
+    var listComments = $('#comments-view').get(0);
 
     var articles = [];
 
@@ -24,6 +25,15 @@ define(function(require) {
         element = '<li><a href="#" data-article-id="'+article.id+'" data-article-language="'+article.language+'"><p>'+article.title+'</p></a></li>';
         appendTo.append(element);
     }
+    var comments = [];
+    listComments.add = function(comment, appendTo){
+        element = '<li class="aria-disabled="true">'+
+                      '<p class="author">'+comment.author+'</p>'+
+                      '<p class="message">'+comment.message+'</p>'+
+                    '</li>';
+        appendTo.append(element);
+    }
+
 
     api.getResource('/articles', {'type': 'news'})
         .setItemsPerPage(15)
@@ -44,19 +54,35 @@ define(function(require) {
                 }
 
                 articles[article.id+'_'+article.language] = article;
-
                 list.add(article, $('ul.elements', list));
             }
         });
 
     // Detail view
-    console.log(articles);
     var detail = $('#details-view').get(0);
     detail.render = function(item) {
         $('.title', this).html(item.title);
         $('.desc', this).html(item.desc);
         $('.date', this).text(item.date);
+        console.log(item.id);
         $('.image', this).attr('src', 'http://'+decodeURIComponent(item.image).replace('%7C', "|"));
+
+        //api.getResource('/articles/'+item.id+'/'+item.language+'/comments', {})
+        api.getResource('/articles/456/pl/comments', {})
+        .setItemsPerPage(3)
+        .makeRequest(function(res){
+            $('.loading').hide();
+            for(var i=0; i<res.items.length; i++) {
+                var comment = { 
+                   message: res.items[i].message,
+                   author: res.items[i].author,
+                   created: res.items[i].created
+                };
+
+                listComments.add(comment, $('ul', listComments));
+            }
+        });
+
     };
 
     $('#list-view ul li a').live('click', function(){
@@ -66,5 +92,12 @@ define(function(require) {
         $(detail).anim({ translate3d: '0, 0, 0'}, 5, 'ease-in').show();
         return false;
     });
+
+    // Comments view
+    var comments = $('#comments-view').get(0);
+    comments.render = function(item) {
+        $('.message', this).html(item.message);
+        $('.author', this).text(item.author);
+    };
 
 });

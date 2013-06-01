@@ -74,7 +74,7 @@ function microAjax(B,A){this.bindFunction=function(E,D){return function(){return
         getResource: function(path, newParams)
         {
             base_path = path;
-
+           
             if (typeof newParams != 'undefined') {
                 this.params = newParams;
             }
