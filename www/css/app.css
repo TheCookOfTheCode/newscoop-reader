@@ -17,3 +17,18 @@ body {
     margin: 0;
     font-family: 'MozTTLight', Verdana, sans-serif;
 }
+.menu-title {
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	width: 155px;
+	maring-top: 20px;
+	height: 69px;
+	background-color: rgb(116, 115, 115);
+	color: #fff;
+	font-size: 23px;
+	line-height: 68px;margin-top: 20px;
+}
+.menu-link {
+    text-decoration: none;
+    color: #fff;
+}

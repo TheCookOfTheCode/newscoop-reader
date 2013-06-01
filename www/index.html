@@ -1,55 +1,73 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
+<head>
+  <meta charset="utf-8">
 
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <!-- Place favicon.ico in the root directory -->
+  <!-- Place favicon.ico in the root directory -->
 
-    <link rel="stylesheet" href="css/app.css">
-    <link rel="stylesheet" type="text/css" href="shared/style/headers.css">
-    <link rel="stylesheet" type="text/css" href="shared/style/lists.css">
-  </head>
-  <body>
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" type="text/css" href="shared/style/headers.css">
+  <link rel="stylesheet" type="text/css" href="shared/style/lists.css">
+</head>
+<body>
     <!-- Use this installation button to install locally without going
-         through the marketpace (see app.js) -->
+    through the marketpace (see app.js) -->
     <!-- <button id="install-btn">Install</button>     -->
-    <section role="region" id="list-view">
+    <section role="region" id="main-view">
       <header>
         <menu type="toolbar">
-          <a href="#"><span class="icon icon-menu">edit</span></a>
+          <!--<a href="#"><span class="icon icon-menu">edit</span></a>-->
         </menu>
         <h1>Reader</h1>
       </header>
       <section data-type="list">
-        <ul class="elements"></ul>
-      </section>
-    </section>
+       <!--<ul class="elements"></ul>-->
+             <center>
+              <div class="menu-title"><a class="menu-link" href="#">News</a></div>
+              <div class="menu-title"><a class="menu-link" href="#">Comments</a></div>
+              <div class="menu-title"><a class="menu-link" href="#">Slideshows</a></div>
+              <div class="menu-title"><a class="menu-link">Topics</a></div>
+             </center>
+            </section>
+          </section>
 
-    <section role="region" id="details-view" style="display:none">
-      <header>
-        <a href="#"><span class="icon icon-back">back</span></a>
-        <h1>Details</h1>
-      </header>
-      <img style="width: 100%; height: 100%;" class="image" src=""/>
-      <h2 class="title" style="font-size:24px"></h2>
-      <p class="desc" style="font-size:22px"></p>
-      <p class="date" style="font-size:18px"></p>
-    </section>
+          <section role="region" style="display: none;" id="list-view">
+            <header>
+              <menu type="toolbar">
+                <a href="#"><span class="icon icon-menu">edit</span></a>
+              </menu>
+              <h1>Reader</h1>
+            </header>
+            <section data-type="list">
+              <ul class="elements"></ul>
+            </section>
+          </section>
 
-    <div class="loading" style="font-size: 3rem; margin: 0 auto; pading: 10px; text-align: center;"><progress></progress></div>
+          <section role="region" id="details-view" style="display:none">
+            <header>
+              <a href="#"><span class="icon icon-back">back</span></a>
+              <h1>Details</h1>
+            </header>
+            <img style="width: 100%; height: 100%;" class="image" src=""/>
+            <h2 class="title" style="font-size:24px"></h2>
+            <p class="desc" style="font-size:22px"></p>
+            <p class="date" style="font-size:18px"></p>
+          </section>
+
+          <div class="loading" style="font-size: 3rem; margin: 0 auto; pading: 10px; text-align: center;"><progress></progress></div>
 
     <!-- Using require.js, a module system for javascript, include the
          js files. This loads "main.js", which in turn can load other
          files, all handled by require.js:
          http://requirejs.org/docs/api.html#jsfiles -->
-    <script type="text/javascript"
-            data-main="js/init.js"
-            src="js/lib/require.js"></script>
-  </body>
-</html>
+         <script type="text/javascript"
+         data-main="js/init.js"
+         src="js/lib/require.js"></script>
+       </body>
+       </html>
